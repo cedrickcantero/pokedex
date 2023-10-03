@@ -29,7 +29,7 @@ const Moves = () => {
     const query = searchInputRef.current.value;
     if (query) {
       try {
-        const result = await fetchMoveByName(query);
+        const result = await fetchMoveByName(capitalizeFirstChar(query));
         setMoves([result]); // If you expect multiple, adjust accordingly
       } catch (error) {
         console.log("Error fetching Move by name", error);
