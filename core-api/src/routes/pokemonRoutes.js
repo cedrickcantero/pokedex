@@ -3,6 +3,7 @@ const {
   getAllPokemon,
   createPokemon,
   getPokemonById,
+  getPokemonByName,
   updatePokemon,
   deletePokemon
 } = require('../controllers/pokemonController');
@@ -18,4 +19,8 @@ router.route('/:id')
   .put(updatePokemon)
   .delete(deletePokemon);
 
+  router.route('/name/:name')
+  .get(getPokemonByName)
+
+  
 module.exports = router;

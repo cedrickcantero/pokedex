@@ -1,0 +1,17 @@
+// App.scss
+
+@import 'variables';
+@import 'mixins';
+@import 'base';
+
+@import './components/common/layout/Header.scss';
+@import './components/common/layout/Body.scss';
+@import './components/common/layout/Footer.scss';
+@import './components/common/layout/Main.scss';
+
+@import 'ag-grid-community/styles/ag-grid.css';
+@import 'ag-grid-community/styles/ag-theme-alpine.css';
+
+
+
+//... other imports

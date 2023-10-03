@@ -29,6 +29,17 @@ exports.getPokemonById = async (req, res) => {
   }
 };
 
+exports.getPokemonByName = async (req, res) => {
+  try {
+    console.log("req.params.name",req.params.name)
+    const pokemon = await Pokemon.findOne({"name.english": req.params.name});
+    if (!pokemon) return res.status(404).json({ message: 'Pokemon not found' });
+    res.status(200).json(pokemon);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+ }
+
 exports.updatePokemon = async (req, res) => {
   try {
     const updatedPokemon = await Pokemon.findByIdAndUpdate(req.params.id, req.body, { new: true });
