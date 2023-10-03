@@ -1,10 +1,16 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 const EventEmitter = require('events');
 const eventEmitter = new EventEmitter();
 
+const MONGO_HOST = process.env.MONGO_HOST || 'localhost'; 
+
+console.log("MONG_HOST",MONGO_HOST);
+
 const connectMongoDB = async () => {
   try {
-    const connection = await mongoose.connect('mongodb://localhost:27017/pokedex', {
+    const connectionString = `mongodb://${MONGO_HOST}:27017/pokedex`;
+    const connection = await mongoose.connect(connectionString, {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });

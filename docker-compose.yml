@@ -1,7 +1,7 @@
 version: '3'
 services:
   mongo:  # add this block
-    container_name: pokedex-mongo
+    container_name: mongo
     image: mongo:latest
     expose:
       - 27017
@@ -14,6 +14,8 @@ services:
 
   core-api:
     container_name: pokedex-core-api
+    environment:
+      - MONGO_HOST=mongo
     build:
       context: .
       dockerfile: core-api/Dockerfile.server
