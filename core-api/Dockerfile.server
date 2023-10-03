@@ -1,0 +1,23 @@
+# Use the Node.js 14 image
+FROM node:14
+
+# Set the working directory
+WORKDIR /usr/src/core-api
+
+# Copy over the package.json and package-lock.json files
+COPY core-api/package*.json ./
+
+# Install all dependencies
+RUN npm install
+
+# Install nodemon globally
+RUN npm install -g nodemon
+
+# Copy over all other files
+COPY core-api/ .
+
+# Expose port 3001
+EXPOSE 3001
+
+# Command to run the application
+CMD ["nodemon", "src/index.js"]

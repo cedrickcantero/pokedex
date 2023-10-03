@@ -1,0 +1,50 @@
+version: '3'
+services:
+  mongo:  # add this block
+    container_name: pokedex-mongo
+    image: mongo:latest
+    expose:
+      - 27017
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+    networks:
+      - pokedex-net
+
+  core-api:
+    container_name: pokedex-core-api
+    build:
+      context: .
+      dockerfile: core-api/Dockerfile.server
+    expose:
+      - 3001
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./core-api/src:/usr/src/core-api/src
+    networks:
+      - pokedex-net
+    depends_on:
+      - mongo  # add this line
+
+  core-app:
+    container_name: pokedex-core-app
+    build:
+      context: .
+      dockerfile: core-app/Dockerfile.server
+    expose:
+      - 3000
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./core-app/src:/usr/src/core-app/src
+    depends_on:
+      - mongo  # add this line
+
+networks:
+  pokedex-net:
+    driver: bridge
+
+volumes:  # add this block
+  mongodata:
