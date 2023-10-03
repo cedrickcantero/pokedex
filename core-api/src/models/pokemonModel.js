@@ -16,6 +16,13 @@ const pokemonSchema = new mongoose.Schema({
     'Sp. Attack': Number,
     'Sp. Defense': Number,
     Speed: Number
+  },
+   imageName: {
+    type: String,
+  },
+  image: {
+    data: Buffer,
+    contentType: String
   }
 });
 

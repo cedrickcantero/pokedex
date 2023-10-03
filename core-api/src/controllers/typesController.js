@@ -29,6 +29,16 @@ exports.getTypeById = async (req, res) => {
   }
 };
 
+exports.getTypeByName = async (req, res) => {
+  try {
+    const type = await Type.findOne({english: req.params.name});
+    if (!type) return res.status(404).json({ message: 'Type not found' });
+    res.status(200).json(type);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+ }
+
 exports.updateType = async (req, res) => {
   try {
     const updatedType = await Type.findByIdAndUpdate(req.params.id, req.body, { new: true });

@@ -2,12 +2,18 @@ const Pokemon = require('../models/pokemonModel');
 
 exports.getAllPokemon = async (req, res) => {
   try {
-    const pokemons = await Pokemon.find();
+    const query = {};
+    if (req.query.type) {
+      query['type'] = { $in: [req.query.type] };
+    }
+
+    const pokemons = await Pokemon.find(query);
     res.status(200).json(pokemons);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
+
 
 exports.createPokemon = async (req, res) => {
   try {
@@ -31,7 +37,6 @@ exports.getPokemonById = async (req, res) => {
 
 exports.getPokemonByName = async (req, res) => {
   try {
-    console.log("req.params.name",req.params.name)
     const pokemon = await Pokemon.findOne({"name.english": req.params.name});
     if (!pokemon) return res.status(404).json({ message: 'Pokemon not found' });
     res.status(200).json(pokemon);

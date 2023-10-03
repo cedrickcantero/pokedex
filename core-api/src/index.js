@@ -3,7 +3,8 @@ const express = require('express');
 const cors = require('cors');
 const allRoutes = require('./routes/routeManager');
 const mongoose = require('mongoose');
-const connectMongoDB = require('./db/mongoConnection');
+const {connectMongoDB} = require('./db/mongoConnection');
+require('./collections/initializeCollections'); 
 
 // Initialize MongoDB connection
 connectMongoDB();

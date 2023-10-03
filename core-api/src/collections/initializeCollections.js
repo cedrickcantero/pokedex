@@ -1,7 +1,7 @@
 const fs = require('fs');
 const mongoose = require('mongoose');
 const path = require('path');
-const connectMongoDB = require('../db/mongoConnection'); // Import your existing connection function
+const { connectMongoDB, eventEmitter } = require('../db/mongoConnection'); // Import your existing connection function
 
 // Path to your JSON file
 const pokedexJSONPath = path.join(__dirname, '..', 'pokedex-migration', 'pokedex.json');
@@ -20,40 +20,75 @@ const itemsData = JSON.parse(itemsJsonData);
 const movesData = JSON.parse(movesJsonData);
 const typesData = JSON.parse(typesJsonData);
 
-// Use your existing MongoDB connection function
-connectMongoDB()
-  .then(async () => {
-    const db = mongoose.connection;
-
+eventEmitter.on('mongodb_connected', async () => {
+  const db = mongoose.connection;
+  try {
     // Insert data to MongoDB using mongoose
     if(pokedexData){
-        const insertResult = await db.collection('pokemons').insertMany(pokedexData);
-        console.log("pokemon documents inserted successfully")
-        console.log(`Inserted ${insertResult.insertedCount} documents to the collection.`);
-    }
+      const insertResult = await db.collection('pokemons').insertMany(pokedexData);
+      console.log("pokemon documents inserted successfully")
+      console.log(`Inserted ${insertResult.insertedCount} documents to the collection.`);
+  }
 
-    if(itemsData){
-        const insertResult = await db.collection('items').insertMany(itemsData);
-        console.log("items documents inserted successfully")
-        console.log(`Inserted ${insertResult.insertedCount} documents to the collection.`);
-    }
+  if(itemsData){
+      const insertResult = await db.collection('items').insertMany(itemsData);
+      console.log("items documents inserted successfully")
+      console.log(`Inserted ${insertResult.insertedCount} documents to the collection.`);
+  }
 
-    if(movesData){
-        const insertResult = await db.collection('moves').insertMany(movesData);
-        console.log("moves documents inserted successfully")
-        console.log(`Inserted ${insertResult.insertedCount} documents to the collection.`);
-    }
+  if(movesData){
+      const insertResult = await db.collection('moves').insertMany(movesData);
+      console.log("moves documents inserted successfully")
+      console.log(`Inserted ${insertResult.insertedCount} documents to the collection.`);
+  }
 
-    if(typesData){
-        const insertResult = await db.collection('types').insertMany(typesData);
-        console.log("types documents inserted successfully")
-        console.log(`Inserted ${insertResult.insertedCount} documents to the collection.`);
-    }
-
-
-    // Close the MongoDB connection
-    db.close();
-  })
-  .catch((err) => {
+  if(typesData){
+      const insertResult = await db.collection('types').insertMany(typesData);
+      console.log("types documents inserted successfully")
+      console.log(`Inserted ${insertResult.insertedCount} documents to the collection.`);
+  }
+  } catch(err) {
     console.error('An error occurred:', err);
-  });
+  }
+});
+
+// Initialize MongoDB connection
+connectMongoDB();
+
+// // Use your existing MongoDB connection function
+// connectMongoDB()
+//   .then(async () => {
+//     const db = mongoose.connection;
+
+//     // Insert data to MongoDB using mongoose
+    // if(pokedexData){
+    //     const insertResult = await db.collection('pokemons').insertMany(pokedexData);
+    //     console.log("pokemon documents inserted successfully")
+    //     console.log(`Inserted ${insertResult.insertedCount} documents to the collection.`);
+    // }
+
+    // if(itemsData){
+    //     const insertResult = await db.collection('items').insertMany(itemsData);
+    //     console.log("items documents inserted successfully")
+    //     console.log(`Inserted ${insertResult.insertedCount} documents to the collection.`);
+    // }
+
+    // if(movesData){
+    //     const insertResult = await db.collection('moves').insertMany(movesData);
+    //     console.log("moves documents inserted successfully")
+    //     console.log(`Inserted ${insertResult.insertedCount} documents to the collection.`);
+    // }
+
+    // if(typesData){
+    //     const insertResult = await db.collection('types').insertMany(typesData);
+    //     console.log("types documents inserted successfully")
+    //     console.log(`Inserted ${insertResult.insertedCount} documents to the collection.`);
+    // }
+
+
+//     // Close the MongoDB connection
+//     db.close();
+//   })
+//   .catch((err) => {
+//     console.error('An error occurred:', err);
+//   });

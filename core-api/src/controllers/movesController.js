@@ -3,7 +3,12 @@ const Move = require('../models/movesModel');
 // Get All Moves
 exports.getAllMoves = async (req, res) => {
   try {
-    const moves = await Move.find();
+    const query = {};
+    if (req.query.type) {
+      query['type'] = { $in: [req.query.type] };
+    }
+
+    const moves = await Move.find(query);
     res.status(200).json(moves);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -31,6 +36,17 @@ exports.getMoveById = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.getMoveByName = async (req, res) => {
+  try {
+    console.log("req.params.name",req.params.name)
+    const item = await Item.findOne({ename: req.params.name});
+    if (!item) return res.status(404).json({ message: 'Move not found' });
+    res.status(200).json(item);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+ }
 
 // Update Move by ID
 exports.updateMove = async (req, res) => {

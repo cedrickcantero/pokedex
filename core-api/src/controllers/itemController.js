@@ -32,6 +32,16 @@ exports.getItemById = async (req, res) => {
   }
 };
 
+exports.getItemByName = async (req, res) => {
+  try {
+    const item = await Item.findOne({"name.english": req.params.name});
+    if (!item) return res.status(404).json({ message: 'Item not found' });
+    res.status(200).json(item);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+ }
+
 // Update Item by ID
 exports.updateItem = async (req, res) => {
   try {

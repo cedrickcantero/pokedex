@@ -2,28 +2,36 @@
 import { default as documentApi } from '../../serviceApi';
 
 const fetchAllItems = async() => {
-return await documentApi.get(`/items/`, { 
-}).then(response => {
-    return response.data
-}).catch(error => {
-    return error
-})
+    return await documentApi.get(`/items/`, { 
+    }).then(response => {
+        return response.data
+    }).catch(error => {
+        return error
+    })
 }
-  
 
+const fetchItemByName = async(pokeName) => {
+    return await documentApi.get(`/items/name/${pokeName}`, { 
+    }).then(response => {
+        return response.data
+    }).catch(error => {
+        return error
+    })
+}
 
 export const useItemService = () => {
-const options = {}
-const services = {
-    fetchAllItems,
-}
+    const options = {}
+    const services = {
+        fetchAllItems,
+        fetchItemByName
+    }
 
-return [
-    { ...services}
-]
+    return [
+        { ...services}
+    ]
 }
 
 export const useItem = () => {
-const [  handlers ] = useItemService()
-return [ handlers ]
+    const [  handlers ] = useItemService()
+    return [ handlers ]
 }
