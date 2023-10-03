@@ -39,8 +39,7 @@ exports.getMoveById = async (req, res) => {
 
 exports.getMoveByName = async (req, res) => {
   try {
-    console.log("req.params.name",req.params.name)
-    const item = await Item.findOne({ename: req.params.name});
+    const item = await Move.findOne({"ename": req.params.name});
     if (!item) return res.status(404).json({ message: 'Move not found' });
     res.status(200).json(item);
   } catch (err) {
