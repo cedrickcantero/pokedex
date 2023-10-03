@@ -3,7 +3,7 @@ import { AgGridReact } from 'ag-grid-react';
 import { itemColumnDefs } from './defaults';
 import { useItem } from './ItemServiceProvider';
 import { debounce } from '../../utils/debounce';
-
+import { capitalizeFirstChar } from '../../utils/string-helper';
 
 const Items = () => {
   const [gridApi, setGridApi] = useState(null);
@@ -23,7 +23,7 @@ const Items = () => {
     const query = searchInputRef.current.value;
     if (query) {
       try {
-        const result = await fetchItemByName(query);
+        const result = await fetchItemByName(capitalizeFirstChar(query));
         setItems([result]); // If you expect multiple, adjust accordingly
       } catch (error) {
         console.log("Error fetching Item by name", error);

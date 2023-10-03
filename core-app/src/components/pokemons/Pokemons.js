@@ -27,7 +27,7 @@ const Pokemons = () => {
     const query = searchInputRef.current.value;
     if (query) {
       try {
-        const result = await fetchPokemonByName(query);
+        const result = await fetchPokemonByName(capitalizeFirstChar(query));
         setPokemons([result]); // If you expect multiple, adjust accordingly
       } catch (error) {
         console.log("Error fetching Pokemon by name", error);
