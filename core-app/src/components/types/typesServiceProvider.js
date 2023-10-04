@@ -6,7 +6,7 @@ const fetchAllTypes = async() => {
     }).then(response => {
         return response.data
     }).catch(error => {
-        return error
+        return []
     })
 }
 
@@ -16,7 +16,7 @@ const fetchTypeByName = async(pokeName) => {
     }).then(response => {
         return response.data
     }).catch(error => {
-        return error
+        return []
     })
 }
   

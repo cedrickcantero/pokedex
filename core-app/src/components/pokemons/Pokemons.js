@@ -53,14 +53,14 @@ const Pokemons = () => {
   
   useEffect(() => {
     const fetchPokemons = async() => {
-      await fetchAllPokemons()
-      .then(data => {
-        setPokemons(data)
-      })
-      .catch(err=>{
+      try {
+        const data = await fetchAllPokemons();
+        setPokemons(data);
+      } catch (err) {
+        console.error('Error fetching Pokemons:', err);
         setPokemons([]);
-      })
-    }
+      }
+    };
 
     fetchPokemons()
 
@@ -87,12 +87,12 @@ const Pokemons = () => {
       <input 
         type="text" 
         ref={searchInputRef} 
-        placeholder="Search a Pokemon" 
+        placeholder="Search Pokemon" 
         onInput={handleSearch}
       />
       <select ref={filterDropdownRef} onChange={handleFilter}>
         <option key="" value="">Select Filter </option>
-        {pokemonTypes.map((pokemonType, index) => (
+        {Array.isArray(pokemonTypes) && pokemonTypes.map((pokemonType, index) => (
           <option key={index} value={pokemonType.english}>
             {pokemonType.english}
           </option>
@@ -102,7 +102,7 @@ const Pokemons = () => {
     <AgGridReact 
       onGridReady={onGridReady}
       columnDefs={pokemonColumnDefs} 
-      rowData={pokemons} 
+      rowData={pokemons}
     />
   </div>
   );
