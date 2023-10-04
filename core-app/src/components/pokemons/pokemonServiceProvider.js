@@ -11,7 +11,7 @@ const fetchAllPokemons = async(filter) => {
         return response.data;
       })
       .catch(error => {
-        return error;
+        return [];
       });
   };
 
@@ -20,7 +20,7 @@ const fetchPokemonByName = async(pokeName) => {
     }).then(response => {
         return response.data
     }).catch(error => {
-        return error
+        return [];
     })
 }
   

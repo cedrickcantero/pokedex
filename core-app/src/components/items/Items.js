@@ -64,7 +64,7 @@ const Items = () => {
         <input 
           type="text" 
           ref={searchInputRef} 
-          placeholder="Search an Item" 
+          placeholder="Search Item" 
           onInput={handleSearch}
         />
       </div>

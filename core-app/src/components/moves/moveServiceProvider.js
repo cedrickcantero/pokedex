@@ -11,7 +11,7 @@ const fetchAllMoves = async(filter) => {
         return response.data;
       })
       .catch(error => {
-        return error;
+        return [];
       });
 };
 
@@ -20,7 +20,7 @@ const fetchMoveByName = async(moveName) => {
     }).then(response => {
         return response.data
     }).catch(error => {
-        return error
+        return []
     })
 }
   
