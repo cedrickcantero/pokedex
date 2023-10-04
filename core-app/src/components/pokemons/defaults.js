@@ -1,15 +1,18 @@
 export const pokemonColumnDefs = [
   { 
     headerName: "ID", 
-    field: "_id",
+    field: "_id", 
+    flex:1 
   },
   { 
     headerName: "Name", 
     valueGetter: params => params.data.name ? params.data.name.english : null,
+    flex:1
   },
   {
     headerName: 'Type',
-    valueGetter: params => params.data.type ? params.data.type.join(', ') : null
+    valueGetter: params => params.data.type ? params.data.type.join(', ') : null,
+    flex:1
   },
   {
     headerName: 'Base Stats',
@@ -20,7 +23,8 @@ export const pokemonColumnDefs = [
           .join(', ');
       }
       return null;
-    }
+    },
+    flex:1
   },
   {
     headerName: 'Image',
@@ -33,24 +37,8 @@ export const pokemonColumnDefs = [
       } else {
         return 'No Image';
       }
-    }
+    },
+    flex:1
   }
 ];
-
-export const pokemonTypes = [
-  { id: 'normal', name: 'Normal'},
-  { id: 'fighting', name: 'Fighting'},
-  { id: 'fire', name: 'Fire'},
-  { id: 'ice', name: 'Ice'},
-  { id: 'electric', name: 'Electric'},
-  { id: 'grass', name: 'Grass'},
-  { id: 'poison', name: 'Poison'},
-  { id: 'bug', name: 'Bug'},
-  { id: 'dragon', name: 'Dragon'},
-  { id: 'physic', name: 'Physic'},
-  { id: 'ghost', name: 'Ghost'},
-  { id: 'ground', name: 'Ground'},
-  { id: 'fairy', name: 'Fairy'},
-  { id: 'dark', name: 'Dark'},
-]
   
