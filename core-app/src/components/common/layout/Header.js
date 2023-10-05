@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Header = () => {
   return (
     <header>
-      <h1>PokéDex</h1>
+      <h1><Link to="/">PokéDex</Link></h1>
       <nav>
         <ul>
           <li><Link to="/items">Items</Link></li>
